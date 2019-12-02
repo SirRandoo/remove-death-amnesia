@@ -16,7 +16,7 @@ namespace SirRandoo.RDA
             Harmony = HarmonyInstance.Create("com.sirrandoo.rda");
             Harmony.PatchAll(Assembly.GetExecutingAssembly());
 
-            Log.Message(string.Format("{0} :: Initialized!", ID));
+            Log.Message($"{ID} :: Initialized!");
         }
     }
 }

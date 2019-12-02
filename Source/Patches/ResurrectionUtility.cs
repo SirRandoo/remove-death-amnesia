@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Reflection;
 using System.Reflection.Emit;
 
 using Harmony;
@@ -14,12 +13,12 @@ namespace SirRandoo.RDA.Patches
         [HarmonyTranspiler]
         public static IEnumerable<CodeInstruction> Resurrect(IEnumerable<CodeInstruction> instructions)
         {
-            MethodInfo enableAndInit = AccessTools.Method(type: typeof(Pawn_WorkSettings), name: nameof(Pawn_WorkSettings.EnableAndInitialize));
-            MethodInfo enableAndInitIf = AccessTools.Method(type: typeof(Pawn_WorkSettings), name: nameof(Pawn_WorkSettings.EnableAndInitializeIfNotAlreadyInitialized));
+            var enableAndInit = AccessTools.Method(type: typeof(Pawn_WorkSettings), name: nameof(Pawn_WorkSettings.EnableAndInitialize));
+            var enableAndInitIf = AccessTools.Method(type: typeof(Pawn_WorkSettings), name: nameof(Pawn_WorkSettings.EnableAndInitializeIfNotAlreadyInitialized));
 
-            foreach (CodeInstruction instruction in instructions)
+            foreach(var instruction in instructions)
             {
-                if (instruction.opcode == OpCodes.Callvirt && instruction.operand == enableAndInit)
+                if(instruction.opcode == OpCodes.Callvirt && instruction.operand == enableAndInit)
                 {
                     yield return new CodeInstruction(opcode: OpCodes.Callvirt, operand: enableAndInitIf);
                 }

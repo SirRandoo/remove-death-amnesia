@@ -1,4 +1,7 @@
 ﻿
+using System.Collections.Generic;
+using System.Reflection.Emit;
+
 using Harmony;
 
 using RimWorld;
@@ -10,18 +13,21 @@ namespace SirRandoo.RDA.Patches
     [HarmonyPatch(typeof(PawnComponentsUtility), "RemoveComponentsOnKilled")]
     public static class PawnComponentsUtility__RemoveComponentsOnKilled
     {
-        [HarmonyPrefix]
-        public static bool RemoveComponentsOnKilled(Pawn pawn)
+        [HarmonyTranspiler]
+        public static IEnumerable<CodeInstruction> RemoveComponentsOnKilled(IEnumerable<CodeInstruction> instructions)
         {
-            if (pawn != null && pawn.RaceProps.Humanlike)
-            {
-                pawn.carryTracker = null;
-                pawn.needs = null;
-                pawn.mindState = null;
-                pawn.trader = null;
-            }
+            var mindState = AccessTools.Field(type: typeof(Pawn), name: "mindState");
+            var workSettings = AccessTools.Field(type: typeof(Pawn), name: "workSettings");
+            var culling = false;
 
-            return false;
+            foreach(var instruction in instructions)
+            {
+                if(instruction.opcode == OpCodes.Stfld && instruction.operand == mindState) culling = true;
+                if(!culling) yield return instruction;
+                if(instruction.opcode == OpCodes.Stfld && instruction.operand == workSettings) culling = false;
+
+                instruction.opcode = OpCodes.Nop;
+            }
         }
     }
 }
