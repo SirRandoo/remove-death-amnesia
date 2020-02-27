@@ -1,5 +1,4 @@
-﻿
-using Harmony;
+﻿using HarmonyLib;
 
 using RimWorld;
 
@@ -10,9 +9,6 @@ namespace SirRandoo.RDA.Patches
     [HarmonyPatch(typeof(PawnComponentsUtility), "RemoveComponentsOnKilled")]
     public static class PawnComponentsUtility__RemoveComponentsOnKilled
     {
-        [HarmonyPrefix]
-        public static void RemoveComponentsOnKilled__Prefix(Pawn pawn, ref Pawn_WorkSettings __state) => __state = pawn.workSettings;
-
         [HarmonyPostfix]
         public static void RemoveComponentsOnKilled__Postfix(Pawn pawn, ref Pawn_WorkSettings __state)
         {
@@ -21,5 +17,8 @@ namespace SirRandoo.RDA.Patches
                 pawn.workSettings = __state;
             }
         }
+
+        [HarmonyPrefix]
+        public static void RemoveComponentsOnKilled__Prefix(Pawn pawn, ref Pawn_WorkSettings __state) => __state = pawn.workSettings;
     }
 }

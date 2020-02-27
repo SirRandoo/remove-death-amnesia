@@ -4,6 +4,7 @@
     <exclude>C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\Remove Death Amnesia\.git</exclude>
     <exclude>C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\Remove Death Amnesia\.vs</exclude>
     <exclude>C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\Remove Death Amnesia\Assemblies\Remove Death Amnesia.pdb</exclude>
+    <exclude>C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\Remove Death Amnesia\Assemblies\UnityEngine.dll</exclude>
     <exclude>C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\Remove Death Amnesia\Remove Death Amnesia.sln</exclude>
     <exclude>C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\Remove Death Amnesia\Source\.vs</exclude>
     <exclude>C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\Remove Death Amnesia\Source\bin</exclude>

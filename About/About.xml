@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ModMetaData>
-	<name>Remove Death Amnesia</name>
-	<author>sirrandoo</author>
-	<supportedVersions>
+  <name>Remove Death Amnesia</name>
+  <author>sirrandoo</author>
+  <supportedVersions>
     <li>1.0</li>
+    <li>1.1</li>
   </supportedVersions>
-	<description>Pawns remember their previous work priorities when they resurrect.</description>
+  <description>Pawns remember their previous work priorities when they resurrect.</description>
+
+  <packageId>sirrandoo.rda</packageId>
 </ModMetaData>

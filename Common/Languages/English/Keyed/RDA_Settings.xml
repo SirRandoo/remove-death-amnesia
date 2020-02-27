@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<LanguageData>
+  <RDA.Groups.General.Label>General Settings</RDA.Groups.General.Label>
+
+  <RDA.Groups.Experimental.Label>Experimental Settings</RDA.Groups.Experimental.Label>
+  <RDA.Groups.Experimental.Tooltip>Note: settings in this group may not work as intended, or at all.  If you choose to enable any of these settings, you should report any issues with said settings.</RDA.Groups.Experimental.Tooltip>
+
+
+  <RDA.Settings.Priorities.Label>Restore pawn's work priorities upon resurrection.</RDA.Settings.Priorities.Label>
+  <RDA.Settings.Priorities.Tooltip>If a pawn were to die while this mod is enabled, and subsequently resurrected, the mod will restore the pawn's work priorities.</RDA.Settings.Priorities.Tooltip>
+
+  <RDA.Settings.Bills.Label>Preserve pawn's bill assignments.</RDA.Settings.Bills.Label>
+  <RDA.Settings.Bills.Tooltip>If a pawn were to die while this mod is enabled, this mod will prevent the game from freeing bills that were specifically assigned to a pawn.</RDA.Settings.Bills.Tooltip>
+</LanguageData>

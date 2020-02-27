@@ -9,12 +9,15 @@ Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
+		RimWorld 1.1|Any CPU = RimWorld 1.1|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{D080AA90-0014-41A7-8836-8A260BBCB43A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{D080AA90-0014-41A7-8836-8A260BBCB43A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D080AA90-0014-41A7-8836-8A260BBCB43A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D080AA90-0014-41A7-8836-8A260BBCB43A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D080AA90-0014-41A7-8836-8A260BBCB43A}.RimWorld 1.1|Any CPU.ActiveCfg = RimWorld 1.1|Any CPU
+		{D080AA90-0014-41A7-8836-8A260BBCB43A}.RimWorld 1.1|Any CPU.Build.0 = RimWorld 1.1|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
