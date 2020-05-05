@@ -8,46 +8,36 @@ using Verse;
 
 namespace SirRandoo.RDA
 {
-    public class RDA : Mod
+    public class Rda : Mod
     {
         internal static Harmony Harmony;
+        public static string Id = "Remove Death Amnesia";
 
-        public RDA(ModContentPack content) : base(content)
+        public Rda(ModContentPack content) : base(content)
         {
             Harmony = new Harmony("com.sirrandoo.rda");
 
             GetSettings<Settings>();
+            Id = content.Name;
         }
 
-        public static string ID => "Remove Death Amnesia";
-
-        public static void Debug(string message)
+        public override void DoSettingsWindowContents(Rect inRect)
         {
-            if(Prefs.DevMode)
-            {
-                Log("DEBUG", message);
-            }
+            Settings.Draw(inRect);
         }
 
-        public static void Info(string message) => Log("INFO", message);
-
-        public static void Log(string level, string message) => Verse.Log.Message($"{level.ToUpper()} {ID} :: {message}");
-
-        public static void Severe(string message) => Log("SEVERE", message);
-
-        public static void Warn(string message) => Log("WARN", message);
-
-        public override void DoSettingsWindowContents(Rect inRect) => Settings.Draw(inRect);
-
-        public override string SettingsCategory() => ID;
+        public override string SettingsCategory()
+        {
+            return Id;
+        }
     }
 
     [StaticConstructorOnStartup]
-    public class RuntimeChecker
+    public class RdaStatic
     {
-        static RuntimeChecker()
+        static RdaStatic()
         {
-            RDA.Harmony.PatchAll(Assembly.GetExecutingAssembly());
+            Rda.Harmony.PatchAll(Assembly.GetExecutingAssembly());
         }
     }
 }
