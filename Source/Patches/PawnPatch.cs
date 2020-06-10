@@ -11,17 +11,17 @@ namespace SirRandoo.RDA.Patches
     [HarmonyPatch(typeof(Pawn), "Kill")]
     public static class PawnKillPatch
     {
+        private static readonly MethodInfo BillColonistUnavailable = AccessTools.Method(typeof(BillUtility), nameof(BillUtility.Notify_ColonistUnavailable));
+        private static readonly MethodInfo NotifyColonistUnavailable = AccessTools.Method(typeof(PawnKillPatch), nameof(Notify__ColonistUnavailable));
+        
         [HarmonyTranspiler]
         public static IEnumerable<CodeInstruction> PreserveBillsOnDeath(IEnumerable<CodeInstruction> instructions)
         {
-            var billMarker = AccessTools.Method(typeof(BillUtility), nameof(BillUtility.Notify_ColonistUnavailable));
-            var wrapper = AccessTools.Method(typeof(PawnKillPatch), nameof(Notify__ColonistUnavailable));
-
             foreach (var instruction in instructions)
             {
-                if (instruction.opcode == OpCodes.Call && instruction.operand as MethodInfo == billMarker)
+                if (instruction.opcode == OpCodes.Call && instruction.operand as MethodInfo == BillColonistUnavailable)
                 {
-                    instruction.operand = wrapper;
+                    instruction.operand = NotifyColonistUnavailable;
                 }
 
                 yield return instruction;
