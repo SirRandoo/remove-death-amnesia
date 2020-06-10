@@ -7,6 +7,7 @@ namespace SirRandoo.RDA
 {
     public class MemoryThingComp : ThingComp
     {
+        private bool _parentCached;
         private Pawn _parentAsPawn;
         private Building_Bed _lastBed;
         private DrugPolicy _lastDrugPolicy;
@@ -31,7 +32,11 @@ namespace SirRandoo.RDA
         {
             get
             {
-                _parentAsPawn ??= parent as Pawn;
+                if (!_parentCached && _parentAsPawn == null)
+                {
+                    _parentAsPawn = parent as Pawn;
+                    _parentCached = true;
+                }
 
                 return _parentAsPawn;
             }
