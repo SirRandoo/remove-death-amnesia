@@ -10,7 +10,7 @@ namespace SirRandoo.RDA.Patches
         [HarmonyPostfix]
         public static void Postfix(Pawn ___pawn)
         {
-            if (!MemoryThingComp.ShouldRemember(___pawn))
+            if (!Settings.Priorities || !MemoryThingComp.ShouldRemember(___pawn))
             {
                 return;
             }
