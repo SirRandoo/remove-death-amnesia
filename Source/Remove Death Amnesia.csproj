@@ -81,7 +81,6 @@
     <Compile Include="MemoryThingComp.cs" />
     <Compile Include="Patches\PawnPatch.cs" />
     <Compile Include="Patches\ResurrectionUtilityPatch.cs" />
-    <Compile Include="Patches\RunWildPatch.cs" />
     <Compile Include="Patches\WorkSettingsPatch.cs" />
     <Compile Include="RDA.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

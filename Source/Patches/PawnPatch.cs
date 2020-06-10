@@ -69,4 +69,24 @@ namespace SirRandoo.RDA.Patches
             __instance?.TryGetComp<MemoryThingComp>()?.TryRestoreMemory();
         }
     }
+
+    [HarmonyPatch(typeof(Pawn), "ChangeKind")]
+    public static class PawnChangeKindPatch
+    {
+        [HarmonyPrefix]
+        public static void WildManCheck(Pawn __instance, PawnKindDef newKindDef)
+        {
+            if (!MemoryThingComp.ShouldRemember(__instance))
+            {
+                return;
+            }
+
+            if (newKindDef != PawnKindDefOf.WildMan)
+            {
+                return;
+            }
+            
+            __instance?.TryGetComp<MemoryThingComp>()?.TryStoreMemory();
+        }
+    }
 }
