@@ -4,17 +4,18 @@ using System.Reflection.Emit;
 using HarmonyLib;
 using RimWorld;
 using Verse;
+// ReSharper disable InconsistentNaming
 
 namespace SirRandoo.RDA.Patches
 {
     [HarmonyPatch(typeof(Pawn), "Kill")]
-    public static class Pawn__Kill
+    public static class PawnKillPatch
     {
         [HarmonyTranspiler]
-        public static IEnumerable<CodeInstruction> Kill(IEnumerable<CodeInstruction> instructions)
+        public static IEnumerable<CodeInstruction> PreserveBillsOnDeath(IEnumerable<CodeInstruction> instructions)
         {
             var billMarker = AccessTools.Method(typeof(BillUtility), nameof(BillUtility.Notify_ColonistUnavailable));
-            var wrapper = AccessTools.Method(typeof(Pawn__Kill), nameof(Notify__ColonistUnavailable));
+            var wrapper = AccessTools.Method(typeof(PawnKillPatch), nameof(Notify__ColonistUnavailable));
 
             foreach (var instruction in instructions)
             {
@@ -28,7 +29,7 @@ namespace SirRandoo.RDA.Patches
         }
 
         [HarmonyPrefix]
-        public static void KillPrefix(Pawn __instance)
+        public static void StoreMemoriesOnDeath(Pawn __instance)
         {
             if (!MemoryThingComp.ShouldRemember(__instance))
             {
@@ -53,7 +54,7 @@ namespace SirRandoo.RDA.Patches
     public static class PawnSetFactionPatch
     {
         [HarmonyPostfix]
-        public static void Postfix(Pawn __instance, Faction newFaction)
+        public static void RestorePlayerColonist(Pawn __instance, Faction newFaction)
         {
             if (!MemoryThingComp.ShouldRemember(__instance))
             {
@@ -65,7 +66,6 @@ namespace SirRandoo.RDA.Patches
                 return;
             }
 
-            // __instance?.TryGetComp<MemoryThingComp>()?.Notify_WildManTamed();
             __instance?.TryGetComp<MemoryThingComp>()?.TryRestoreMemory();
         }
     }
