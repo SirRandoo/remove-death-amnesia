@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using RimWorld;
 using Verse;
@@ -85,41 +85,60 @@ namespace SirRandoo.RDA
                 return;
             }
 
-            if ((_lastBed?.Spawned ?? false) && Parent.CurrentBed() != _lastBed)
+            if (Settings.Beds && (_lastBed?.Spawned ?? false) && Parent.CurrentBed() != _lastBed)
             {
                 Parent.ownership.ClaimBedIfNonMedical(_lastBed);
             }
 
-            if (_lastOutfit != null && Parent.outfits.CurrentOutfit != _lastOutfit)
+            if (Settings.Outfits && _lastOutfit != null && Parent.outfits.CurrentOutfit != _lastOutfit && Current.Game.outfitDatabase.AllOutfits.Any(o => _lastOutfit.uniqueId.Equals(o.uniqueId)))
             {
                 Parent.outfits.CurrentOutfit = _lastOutfit;
             }
 
-            if (_lastFoodRestriction != null && Parent.foodRestriction.CurrentFoodRestriction != _lastFoodRestriction)
+            if (Settings.FoodRestrictions && _lastFoodRestriction != null && Parent.foodRestriction.CurrentFoodRestriction != _lastFoodRestriction && Current.Game.foodRestrictionDatabase.AllFoodRestrictions.Any(f => _lastFoodRestriction.id.Equals(f.id)))
             {
                 Parent.foodRestriction.CurrentFoodRestriction = _lastFoodRestriction;
             }
 
-            if (_lastDrugPolicy != null && Parent.drugs.CurrentPolicy != _lastDrugPolicy)
+            if (Settings.DrugPolicies && _lastDrugPolicy != null && Parent.drugs.CurrentPolicy != _lastDrugPolicy && Current.Game.drugPolicyDatabase.AllPolicies.Any(p => _lastDrugPolicy.uniqueId.Equals(p.uniqueId)))
             {
                 Parent.drugs.CurrentPolicy = _lastDrugPolicy;
             }
 
-            if (!_lastSchedule.NullOrEmpty() && Parent.timetable.times != _lastSchedule)
+            if (Settings.Timetables && !_lastSchedule.NullOrEmpty() && Parent.timetable.times != _lastSchedule)
             {
                 Parent.timetable.times = _lastSchedule;
             }
 
             if (Parent.playerSettings != null)
             {
-                Parent.playerSettings.AreaRestriction = _lastAllowedArea;
-                Parent.playerSettings.displayOrder = _lastDisplayOrder;
-                Parent.playerSettings.hostilityResponse = _lastHostilityResponse;
-                Parent.playerSettings.medCare = _lastMedCareCategory;
-                Parent.playerSettings.selfTend = _lastSelfTendSetting;
+                if(Settings.Area && _lastAllowedArea.Map.areaManager.AllAreas.Any(a => _lastAllowedArea.ID.Equals(a.ID)))
+                {
+                    Parent.playerSettings.AreaRestriction = _lastAllowedArea;
+                }
+
+                if(Settings.DisplayOrder)
+                {
+                    Parent.playerSettings.displayOrder = _lastDisplayOrder;
+                }
+
+                if(Settings.HostilityResponse)
+                {
+                    Parent.playerSettings.hostilityResponse = _lastHostilityResponse;
+                }
+
+                if(Settings.MedicalCare)
+                {
+                    Parent.playerSettings.medCare = _lastMedCareCategory;
+                }
+
+                if(Settings.SelfTend)
+                {
+                    Parent.playerSettings.selfTend = _lastSelfTendSetting;
+                }
             }
 
-            if (_workCache != null)
+            if (Settings.Priorities && _workCache != null)
             {
                 Parent.workSettings.EnableAndInitialize();
                 
@@ -144,41 +163,60 @@ namespace SirRandoo.RDA
                 return;
             }
 
-            if (Parent.CurrentBed()?.Spawned ?? false)
+            if (Settings.Beds && (Parent.CurrentBed()?.Spawned ?? false))
             {
                 _lastBed = Parent.CurrentBed();
             }
 
-            if (Parent.outfits.CurrentOutfit != null)
+            if (Settings.Outfits && Parent.outfits.CurrentOutfit != null)
             {
                 _lastOutfit = Parent.outfits.CurrentOutfit;
             }
 
-            if (Parent.foodRestriction.CurrentFoodRestriction != null)
+            if (Settings.FoodRestrictions && Parent.foodRestriction.CurrentFoodRestriction != null)
             {
                 _lastFoodRestriction = Parent.foodRestriction.CurrentFoodRestriction;
             }
 
-            if (Parent.drugs.CurrentPolicy != null)
+            if (Settings.DrugPolicies && Parent.drugs.CurrentPolicy != null)
             {
                 _lastDrugPolicy = Parent.drugs.CurrentPolicy;
             }
 
-            if (!Parent.timetable.times.NullOrEmpty())
+            if (Settings.Timetables && !Parent.timetable.times.NullOrEmpty())
             {
                 _lastSchedule = Parent.timetable.times.ToList();
             }
 
             if (Parent.playerSettings != null)
             {
-                _lastAllowedArea = Parent.playerSettings.AreaRestriction;
-                _lastDisplayOrder = Parent.playerSettings.displayOrder;
-                _lastHostilityResponse = Parent.playerSettings.hostilityResponse;
-                _lastMedCareCategory = Parent.playerSettings.medCare;
-                _lastSelfTendSetting = Parent.playerSettings.selfTend;
+                if(Settings.Area)
+                {
+                    _lastAllowedArea = Parent.playerSettings.AreaRestriction;
+                }
+
+                if(Settings.DisplayOrder)
+                {
+                    _lastDisplayOrder = Parent.playerSettings.displayOrder;
+                }
+
+                if(Settings.HostilityResponse)
+                {
+                    _lastHostilityResponse = Parent.playerSettings.hostilityResponse;
+                }
+
+                if(Settings.MedicalCare)
+                {
+                    _lastMedCareCategory = Parent.playerSettings.medCare;
+                }
+
+                if(Settings.SelfTend)
+                {
+                    _lastSelfTendSetting = Parent.playerSettings.selfTend;
+                }
             }
 
-            if (Parent.workSettings != null)
+            if (Settings.Priorities && Parent.workSettings != null)
             {
                 _workCache = (MemoryHelper.WorkSettingsMap.GetValue(Parent.workSettings) as DefMap<WorkTypeDef, int>)?.Copy();
             }
