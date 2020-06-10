@@ -1,15 +1,22 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 
 <LanguageData>
-  <RDA.Groups.General.Label>General Settings</RDA.Groups.General.Label>
-
-  <RDA.Groups.Experimental.Label>Experimental Settings</RDA.Groups.Experimental.Label>
-  <RDA.Groups.Experimental.Tooltip>Note: settings in this group may not work as intended, or at all.  If you choose to enable any of these settings, you should report any issues with said settings.</RDA.Groups.Experimental.Tooltip>
-
-
-  <RDA.Settings.Priorities.Label>Restore pawn's work priorities upon resurrection.</RDA.Settings.Priorities.Label>
-  <RDA.Settings.Priorities.Tooltip>If a pawn were to die while this mod is enabled, and subsequently resurrected, the mod will restore the pawn's work priorities.</RDA.Settings.Priorities.Tooltip>
-
-  <RDA.Settings.Bills.Label>Preserve pawn's bill assignments.</RDA.Settings.Bills.Label>
-  <RDA.Settings.Bills.Tooltip>If a pawn were to die while this mod is enabled, this mod will prevent the game from freeing bills that were specifically assigned to a pawn.</RDA.Settings.Bills.Tooltip>
+  <!-- Setting Groups -->
+  <RDA.Settings.General>General</RDA.Settings.General>
+  <RDA.Settings.Experimental>Experimental</RDA.Settings.Experimental>
+  
+  <!-- General Settings -->
+  <RDA.Settings.General.Bed>Whether or not the mod will restore the pawn's bed assignment.</RDA.Settings.General.Bed>
+  <RDA.Settings.General.DrugPolicy>Whether or not the mod will restore the pawn's drug policy assignment.</RDA.Settings.General.DrugPolicy>
+  <RDA.Settings.General.FoodRestriction>Whether or not the mod will restore the pawn's food restriction.</RDA.Settings.General.FoodRestriction>
+  <RDA.Settings.General.Outfit>Whether or not the mod will restore the pawn's outfit preferences.</RDA.Settings.General.Outfit>
+  <RDA.Settings.General.TimeTable>Whether or not the mod will restore the pawn's time schedule.</RDA.Settings.General.TimeTable>
+  <RDA.Settings.General.SelfTend>Whether or not the mod will restore the pawn's self tend status.</RDA.Settings.General.SelfTend>
+  <RDA.Settings.General.DisplayOrder>Whether or not the mod will restore the pawn's display order.</RDA.Settings.General.DisplayOrder>
+  <RDA.Settings.General.MedicalCare>Whether or not the mod will restore the pawn's medical care category.</RDA.Settings.General.MedicalCare>
+  <RDA.Settings.General.MedicalCare.Tooltip>Medical care categories are what tier of medicine a doctor will use on them.</RDA.Settings.General.MedicalCare.Tooltip>
+  <RDA.Settings.General.HostilityResponse>Whether or not the mod will restore the pawn's hostility response.</RDA.Settings.General.HostilityResponse>
+  <RDA.Settings.General.HostilityResponse.Tooltip>Hostility responses are whether or not a pawn will attack, flee, or ignore enemies.</RDA.Settings.General.HostilityResponse.Tooltip>
+  <RDA.Settings.General.Area>Whether or not the mod will restore the pawn's area restriction.</RDA.Settings.General.Area>
+  <RDA.Settings.General.Work>Whether or not the mod will restore the pawn's work priorities.</RDA.Settings.General.Work>
 </LanguageData>
