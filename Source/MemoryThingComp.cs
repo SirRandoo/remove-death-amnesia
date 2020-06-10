@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Linq;
 using RimWorld;
 using Verse;
@@ -130,9 +130,6 @@ namespace SirRandoo.RDA
                 {
                     Parent.workSettings.SetPriority(work.Key, work.Value);
                 }
-
-                Logger.Info(_workCache.ToStringSafeEnumerable());
-                Logger.Info(Parent.workSettings.DebugString());
             }
         }
 
@@ -187,9 +184,6 @@ namespace SirRandoo.RDA
             if (Parent.workSettings != null)
             {
                 _workCache = (MemoryHelper.WorkSettingsMap.GetValue(Parent.workSettings) as DefMap<WorkTypeDef, int>)?.Copy();
-                
-                Logger.Info(_workCache.ToStringSafeEnumerable());
-                Logger.Info(Parent.workSettings.DebugString());
             }
         }
 
