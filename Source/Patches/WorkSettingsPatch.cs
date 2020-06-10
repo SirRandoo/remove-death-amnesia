@@ -15,17 +15,7 @@ namespace SirRandoo.RDA.Patches
                 return;
             }
 
-            var cache = ___pawn.TryGetComp<MemoryThingComp>()?.GetWorkSettings();
-
-            if (cache == null)
-            {
-                return;
-            }
-
-            foreach (var work in cache)
-            {
-                ___pawn.workSettings.SetPriority(work.Key, work.Value);
-            }
+            ___pawn.TryGetComp<MemoryThingComp>()?.TryRestoreWorkPriorities();
         }
     }
 }
