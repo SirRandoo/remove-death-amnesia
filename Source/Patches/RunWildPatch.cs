@@ -5,10 +5,10 @@ using Verse.AI;
 namespace SirRandoo.RDA.Patches
 {
     [HarmonyPatch(typeof(MentalBreakWorker_RunWild), "TryStart")]
-    public static class RunWild
+    public static class RunWildPatch
     {
         [HarmonyPrefix]
-        public static void Prefix(Pawn pawn)
+        public static void StoreOnRunWild(Pawn pawn)
         {
             if (!MemoryThingComp.ShouldRemember(pawn))
             {

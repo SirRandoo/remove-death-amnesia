@@ -8,7 +8,7 @@ namespace SirRandoo.RDA.Patches
     public static class WorkSettingsPatch
     {
         [HarmonyPostfix]
-        public static void Postfix(Pawn ___pawn)
+        public static void RestoreIfExists(Pawn ___pawn)
         {
             if (!Settings.Priorities || !MemoryThingComp.ShouldRemember(___pawn))
             {
