@@ -1,4 +1,4 @@
-﻿using System.Reflection;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
@@ -6,11 +6,11 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("Remove Death Amnesia")]
-[assembly: AssemblyDescription("Colonists keep their work priorities, even in death.")]
+[assembly: AssemblyDescription("A small mod to help colonists remember who they were.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("Remove Death Amnesia")]
-[assembly: AssemblyCopyright("Copyright © SirRandoo 2019")]
+[assembly: AssemblyCopyright("Copyright © SirRandoo 2020")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
