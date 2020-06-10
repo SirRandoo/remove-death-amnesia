@@ -119,7 +119,7 @@ namespace SirRandoo.RDA
             TryStoreDrugPolicy();
             TryStoreTimetable();
             TryStoreWorkPriorities();
-            
+
             if (Parent.playerSettings != null)
             {
                 TryStoreArea();

@@ -1,9 +1,6 @@
 ﻿using System.Reflection;
-
 using HarmonyLib;
-
 using UnityEngine;
-
 using Verse;
 
 namespace SirRandoo.RDA
@@ -36,7 +33,7 @@ namespace SirRandoo.RDA
     public class RdaStatic
     {
         internal static readonly SoundDef GizmoSound;
-        
+
         static RdaStatic()
         {
             Rda.Harmony.PatchAll(Assembly.GetExecutingAssembly());

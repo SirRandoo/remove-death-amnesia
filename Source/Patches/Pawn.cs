@@ -1,13 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Reflection;
 using System.Reflection.Emit;
-
 using HarmonyLib;
-
 using RimWorld;
-
 using Verse;
-using Verse.AI;
 
 namespace SirRandoo.RDA.Patches
 {
@@ -20,9 +16,9 @@ namespace SirRandoo.RDA.Patches
             var billMarker = AccessTools.Method(typeof(BillUtility), nameof(BillUtility.Notify_ColonistUnavailable));
             var wrapper = AccessTools.Method(typeof(Pawn__Kill), nameof(Notify__ColonistUnavailable));
 
-            foreach(var instruction in instructions)
+            foreach (var instruction in instructions)
             {
-                if(instruction.opcode == OpCodes.Call && instruction.operand as MethodInfo == billMarker)
+                if (instruction.opcode == OpCodes.Call && instruction.operand as MethodInfo == billMarker)
                 {
                     instruction.operand = wrapper;
                 }
@@ -48,11 +44,11 @@ namespace SirRandoo.RDA.Patches
             {
                 return;
             }
-            
+
             BillUtility.Notify_ColonistUnavailable(pawn);
         }
     }
-    
+
     [HarmonyPatch(typeof(Pawn), "SetFaction")]
     public static class PawnSetFactionPatch
     {
@@ -63,12 +59,12 @@ namespace SirRandoo.RDA.Patches
             {
                 return;
             }
-            
+
             if (newFaction != Faction.OfPlayer)
             {
                 return;
             }
-                
+
             // __instance?.TryGetComp<MemoryThingComp>()?.Notify_WildManTamed();
             __instance?.TryGetComp<MemoryThingComp>()?.TryRestoreMemory();
         }

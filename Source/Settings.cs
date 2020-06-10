@@ -10,7 +10,7 @@ namespace SirRandoo.RDA
 {
     internal enum Pages
     {
-        General,
+        General
         //Experimental
     }
 

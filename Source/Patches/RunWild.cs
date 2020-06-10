@@ -14,7 +14,7 @@ namespace SirRandoo.RDA.Patches
             {
                 return;
             }
-            
+
             pawn?.TryGetComp<MemoryThingComp>()?.TryStoreMemory();
         }
     }

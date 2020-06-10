@@ -1,10 +1,6 @@
-﻿using System.Collections.Generic;
-using System.Reflection;
-using System.Reflection.Emit;
-using HarmonyLib;
+﻿using HarmonyLib;
 using RimWorld;
 using Verse;
-using Verse.AI;
 
 namespace SirRandoo.RDA.Patches
 {
