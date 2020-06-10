@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<LanguageData>
+    <!-- Gizmos -->
+    <RDA.Gizmos.Restore.Label>Restore memory</RDA.Gizmos.Restore.Label>
+    <RDA.Gizmos.Restore.Description>Restores the last known memories of the pawn.</RDA.Gizmos.Restore.Description>
+    <RDA.Gizmos.Store.Label>Store memory</RDA.Gizmos.Store.Label>
+    <RDA.Gizmos.Store.Description>Stores the current memories of the pawn.</RDA.Gizmos.Store.Description>
+</LanguageData>
