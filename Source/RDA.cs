@@ -35,9 +35,13 @@ namespace SirRandoo.RDA
     [StaticConstructorOnStartup]
     public class RdaStatic
     {
+        internal static readonly SoundDef GizmoSound;
+        
         static RdaStatic()
         {
             Rda.Harmony.PatchAll(Assembly.GetExecutingAssembly());
+
+            GizmoSound = SoundDef.Named("Click");
         }
     }
 }
