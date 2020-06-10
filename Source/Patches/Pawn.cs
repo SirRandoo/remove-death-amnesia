@@ -52,4 +52,25 @@ namespace SirRandoo.RDA.Patches
             BillUtility.Notify_ColonistUnavailable(pawn);
         }
     }
+    
+    [HarmonyPatch(typeof(Pawn), "SetFaction")]
+    public static class PawnSetFactionPatch
+    {
+        [HarmonyPostfix]
+        public static void Postfix(Pawn __instance, Faction newFaction)
+        {
+            if (!MemoryThingComp.ShouldRemember(__instance))
+            {
+                return;
+            }
+            
+            if (newFaction != Faction.OfPlayer)
+            {
+                return;
+            }
+                
+            // __instance?.TryGetComp<MemoryThingComp>()?.Notify_WildManTamed();
+            __instance?.TryGetComp<MemoryThingComp>()?.TryRestoreMemory();
+        }
+    }
 }
