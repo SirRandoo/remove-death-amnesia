@@ -78,15 +78,9 @@ namespace SirRandoo.RDA
 
         internal void TryRestoreMemory()
         {
-            if (parent == null)
-            {
-                Logger.Warn("Could not restore memory; parent was null!");
-                return;
-            }
-
             if (Parent == null)
             {
-                Logger.Warn("MemoryComp applied to a non-pawn! Only pawns should have this comp.");
+                Logger.Warn("Parent was either null or applied to a non-pawn. MemoryThingComp should only be applied to pawns.");
                 return;
             }
 
@@ -156,15 +150,9 @@ namespace SirRandoo.RDA
 
         internal void TryStoreMemory()
         {
-            if (parent == null)
-            {
-                Logger.Warn("Could not store memory; parent was null!");
-                return;
-            }
-
             if (Parent == null)
             {
-                Logger.Warn("MemoryComp applied to a non-pawn! Only pawns should have this comp.");
+                Logger.Warn("Parent was either null or applied to a non-pawn. MemoryThingComp should only be applied to pawns.");
                 return;
             }
 
