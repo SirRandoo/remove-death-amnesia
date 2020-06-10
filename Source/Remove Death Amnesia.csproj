@@ -87,5 +87,34 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Settings.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="..\About\About.xml">
+      <Link>About\About.xml</Link>
+    </Content>
+    <Content Include="..\About\Manifest.xml">
+      <Link>About\Manifest.xml</Link>
+    </Content>
+    <Content Include="..\About\Preview.png">
+      <Link>About\Preview.png</Link>
+    </Content>
+    <Content Include="..\README.md">
+      <Link>README.md</Link>
+    </Content>
+    <Content Include="..\LICENSE">
+      <Link>LICENSE</Link>
+    </Content>
+    <Content Include="..\LoadFolders.xml">
+      <Link>LoadFolders.xml</Link>
+    </Content>
+    <Content Include="..\Common\Languages\English\Keyed\RDA_General.xml">
+      <Link>Common\Languages\English\Keyed\RDA_General.xml</Link>
+    </Content>
+    <Content Include="..\Common\Languages\English\Keyed\RDA_Settings.xml">
+      <Link>Common\Languages\English\Keyed\RDA_Settings.xml</Link>
+    </Content>
+    <Content Include="..\Common\Patches\MemoryCompPatch.xml">
+      <Link>Common\Patches\MemoryCompPatch.xml</Link>
+    </Content>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
