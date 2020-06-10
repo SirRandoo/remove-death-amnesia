@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Reflection;
 using System.Reflection.Emit;
 
 using HarmonyLib;
@@ -6,6 +7,7 @@ using HarmonyLib;
 using RimWorld;
 
 using Verse;
+using Verse.AI;
 
 namespace SirRandoo.RDA.Patches
 {
@@ -15,12 +17,12 @@ namespace SirRandoo.RDA.Patches
         [HarmonyTranspiler]
         public static IEnumerable<CodeInstruction> Kill(IEnumerable<CodeInstruction> instructions)
         {
-            var billMarker = AccessTools.Method(type: typeof(BillUtility), name: nameof(BillUtility.Notify_ColonistUnavailable));
-            var wrapper = AccessTools.Method(type: typeof(Pawn__Kill), name: nameof(Notify_ColonistUnavailable));
+            var billMarker = AccessTools.Method(typeof(BillUtility), nameof(BillUtility.Notify_ColonistUnavailable));
+            var wrapper = AccessTools.Method(typeof(Pawn__Kill), nameof(Notify__ColonistUnavailable));
 
             foreach(var instruction in instructions)
             {
-                if(instruction.opcode == OpCodes.Call && instruction.operand == billMarker)
+                if(instruction.opcode == OpCodes.Call && instruction.operand as MethodInfo == billMarker)
                 {
                     instruction.operand = wrapper;
                 }
@@ -29,10 +31,24 @@ namespace SirRandoo.RDA.Patches
             }
         }
 
-        public static void Notify_ColonistUnavailable(Pawn pawn)
+        [HarmonyPrefix]
+        public static void KillPrefix(Pawn __instance)
         {
-            if(Settings.Bills) return;
+            if (!MemoryThingComp.ShouldRemember(__instance))
+            {
+                return;
+            }
 
+            __instance.TryGetComp<MemoryThingComp>()?.TryStoreMemory();
+        }
+
+        private static void Notify__ColonistUnavailable(Pawn pawn)
+        {
+            if (Settings.Bills)
+            {
+                return;
+            }
+            
             BillUtility.Notify_ColonistUnavailable(pawn);
         }
     }
