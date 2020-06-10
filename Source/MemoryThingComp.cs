@@ -23,9 +23,6 @@ namespace SirRandoo.RDA
         
         // Work settings
         private DefMap<WorkTypeDef, int> _workCache;
-        
-        // Wild man
-        private bool _recentlyTamed;
 
         private Command_Action _restoreMemory;
         private Command_Action _storeMemory;
@@ -218,7 +215,6 @@ namespace SirRandoo.RDA
             Scribe_Values.Look(ref _lastMedCareCategory, "lastKnownMedicalCategory");
             Scribe_Values.Look(ref _lastHostilityResponse, "lastKnownHostilityResponse");
             Scribe_References.Look(ref _lastFoodRestriction, "lastKnownFoodRestriction");
-            Scribe_Values.Look(ref _recentlyTamed, "wasRecentlyTamed");
         }
 
         internal DefMap<WorkTypeDef, int> GetWorkSettings()
