@@ -39,7 +39,7 @@ namespace SirRandoo.RDA
 
         public override IEnumerable<Gizmo> CompGetGizmosExtra()
         {
-            if (!Prefs.DevMode && Parent == null)
+            if (!Prefs.DevMode || Parent == null)
             {
                 yield break;
             }
