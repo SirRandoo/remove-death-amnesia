@@ -27,7 +27,7 @@ namespace SirRandoo.RDA
         private Command_Action _restoreMemory;
         private Command_Action _storeMemory;
 
-        public Pawn Parent
+        private Pawn Parent
         {
             get
             {
@@ -184,7 +184,7 @@ namespace SirRandoo.RDA
             }
         }
 
-        internal bool CanRestoreMemory()
+        private bool CanRestoreMemory()
         {
             if (Parent == null)
             {
