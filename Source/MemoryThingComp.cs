@@ -263,7 +263,7 @@ namespace SirRandoo.RDA
                 return;
             }
 
-            Parent.timetable.times = _lastSchedule;
+            Parent.timetable.times = _lastSchedule.ListFullCopy();
         }
 
         internal void TryRestoreArea()
