@@ -417,7 +417,7 @@ namespace SirRandoo.RDA
                 return;
             }
 
-            if (Parent.timetable?.times == null)
+            if (Parent.timetable?.times?.NullOrEmpty() ?? true)
             {
                 return;
             }
