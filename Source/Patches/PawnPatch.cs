@@ -4,6 +4,7 @@ using System.Reflection.Emit;
 using HarmonyLib;
 using RimWorld;
 using Verse;
+
 // ReSharper disable InconsistentNaming
 
 namespace SirRandoo.RDA.Patches
@@ -11,9 +12,16 @@ namespace SirRandoo.RDA.Patches
     [HarmonyPatch(typeof(Pawn), "Kill")]
     public static class PawnKillPatch
     {
-        private static readonly MethodInfo BillColonistUnavailable = AccessTools.Method(typeof(BillUtility), nameof(BillUtility.Notify_ColonistUnavailable));
-        private static readonly MethodInfo NotifyColonistUnavailable = AccessTools.Method(typeof(PawnKillPatch), nameof(Notify__ColonistUnavailable));
-        
+        private static readonly MethodInfo BillColonistUnavailable = AccessTools.Method(
+            typeof(BillUtility),
+            nameof(BillUtility.Notify_ColonistUnavailable)
+        );
+
+        private static readonly MethodInfo NotifyColonistUnavailable = AccessTools.Method(
+            typeof(PawnKillPatch),
+            nameof(Notify__ColonistUnavailable)
+        );
+
         [HarmonyTranspiler]
         public static IEnumerable<CodeInstruction> PreserveBillsOnDeath(IEnumerable<CodeInstruction> instructions)
         {
@@ -85,7 +93,7 @@ namespace SirRandoo.RDA.Patches
             {
                 return;
             }
-            
+
             __instance?.TryGetComp<MemoryThingComp>()?.TryStoreMemory();
         }
     }
