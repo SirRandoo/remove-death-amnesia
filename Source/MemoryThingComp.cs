@@ -258,7 +258,7 @@ namespace SirRandoo.RDA
                 return;
             }
 
-            if (!Parent.timetable.times?.SequenceEqual(_lastSchedule) ?? true)
+            if (Parent.timetable.times?.SequenceEqual(_lastSchedule) ?? false)
             {
                 return;
             }
