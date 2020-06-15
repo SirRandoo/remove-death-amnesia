@@ -1,8 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Reflection.Emit;
-
 using HarmonyLib;
-
 using RimWorld;
 
 namespace SirRandoo.RDA.Patches
@@ -13,14 +11,11 @@ namespace SirRandoo.RDA.Patches
         [HarmonyTranspiler]
         public static IEnumerable<CodeInstruction> Resurrect(IEnumerable<CodeInstruction> instructions)
         {
-            var enableAndInit = AccessTools.Method(type: typeof(Pawn_WorkSettings), name: nameof(Pawn_WorkSettings.EnableAndInitialize));
-            var enableAndInitIf = AccessTools.Method(type: typeof(Pawn_WorkSettings), name: nameof(Pawn_WorkSettings.EnableAndInitializeIfNotAlreadyInitialized));
-
-            foreach(var instruction in instructions)
+            foreach (var instruction in instructions)
             {
-                if(instruction.opcode == OpCodes.Callvirt && instruction.operand == enableAndInit)
+                if (instruction.opcode == OpCodes.Callvirt && instruction.operand == RuntimeChecker.EnableAndInit)
                 {
-                    yield return new CodeInstruction(opcode: OpCodes.Callvirt, operand: enableAndInitIf);
+                    yield return new CodeInstruction(OpCodes.Callvirt, RuntimeChecker.EnableAndInitIf);
                 }
                 else
                 {

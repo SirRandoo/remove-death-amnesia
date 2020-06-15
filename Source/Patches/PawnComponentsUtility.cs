@@ -1,7 +1,7 @@
-﻿using HarmonyLib;
-
+﻿using System.Collections.Generic;
+using System.Reflection.Emit;
+using HarmonyLib;
 using RimWorld;
-
 using Verse;
 
 namespace SirRandoo.RDA.Patches
@@ -9,16 +9,42 @@ namespace SirRandoo.RDA.Patches
     [HarmonyPatch(typeof(PawnComponentsUtility), "RemoveComponentsOnKilled")]
     public static class PawnComponentsUtility__RemoveComponentsOnKilled
     {
-        [HarmonyPostfix]
-        public static void RemoveComponentsOnKilled__Postfix(Pawn pawn, ref Pawn_WorkSettings __state)
+        [HarmonyTranspiler]
+        public static IEnumerable<CodeInstruction> RemoveComponentsOnKilled(IEnumerable<CodeInstruction> instructions)
         {
-            if(Settings.Priorities)
+            var culling = false;
+
+            foreach (var instruction in instructions)
             {
-                pawn.workSettings = __state;
+                if (instruction.opcode == OpCodes.Stfld && instruction.OperandIs(RuntimeChecker.PawnMindState))
+                {
+                    Log.Message($"+ Opcode: {instruction.opcode}::{instruction.operand.ToStringSafe()}");
+                    yield return instruction;
+                    
+                    Log.Message("Starting work settings removal...");
+                    culling = true;
+                    continue;
+                }
+
+                if (!culling)
+                {
+                    Log.Message($"+ Opcode: {instruction.opcode}::{instruction.operand.ToStringSafe()}");
+                    yield return instruction;
+                }
+                else
+                {
+                    if (instruction.opcode == OpCodes.Stfld && instruction.OperandIs(RuntimeChecker.PawnWorkSettings))
+                    {
+                        Log.Message("Finished removing work settings assignment...");
+                        culling = false;
+                        instruction.opcode = OpCodes.Nop;
+                        continue;
+                    }
+                    
+                    instruction.opcode = OpCodes.Nop;
+                    Log.Message($"- Opcode: {instruction.opcode}::{instruction.operand.ToStringSafe()}");
+                }
             }
         }
-
-        [HarmonyPrefix]
-        public static void RemoveComponentsOnKilled__Prefix(Pawn pawn, ref Pawn_WorkSettings __state) => __state = pawn.workSettings;
     }
 }

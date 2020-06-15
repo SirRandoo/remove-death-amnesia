@@ -1,9 +1,8 @@
 ﻿using System.Reflection;
-
 using HarmonyLib;
-
+using RimWorld;
+using SirRandoo.RDA.Patches;
 using UnityEngine;
-
 using Verse;
 
 namespace SirRandoo.RDA
@@ -21,32 +20,39 @@ namespace SirRandoo.RDA
 
         public static string ID => "Remove Death Amnesia";
 
-        public static void Debug(string message)
+        public override void DoSettingsWindowContents(Rect inRect)
         {
-            if(Prefs.DevMode)
-            {
-                Log("DEBUG", message);
-            }
+            Settings.Draw(inRect);
         }
 
-        public static void Info(string message) => Log("INFO", message);
-
-        public static void Log(string level, string message) => Verse.Log.Message($"{level.ToUpper()} {ID} :: {message}");
-
-        public static void Severe(string message) => Log("SEVERE", message);
-
-        public static void Warn(string message) => Log("WARN", message);
-
-        public override void DoSettingsWindowContents(Rect inRect) => Settings.Draw(inRect);
-
-        public override string SettingsCategory() => ID;
+        public override string SettingsCategory()
+        {
+            return ID;
+        }
     }
 
     [StaticConstructorOnStartup]
     public class RuntimeChecker
     {
+        internal static readonly MethodInfo RimBillNotify;
+        internal static readonly MethodInfo RdaBillNotify;
+        internal static readonly MethodInfo EnableAndInit;
+        internal static readonly MethodInfo EnableAndInitIf;
+        internal static readonly FieldInfo PawnMindState;
+        internal static readonly FieldInfo PawnWorkSettings;
+        
         static RuntimeChecker()
         {
+            RimBillNotify = AccessTools.Method(typeof(BillUtility), nameof(BillUtility.Notify_ColonistUnavailable));
+            RdaBillNotify = AccessTools.Method(typeof(Pawn__Kill), nameof(Pawn__Kill.Notify_ColonistUnavailable));
+            EnableAndInit = AccessTools.Method(typeof(Pawn_WorkSettings), nameof(Pawn_WorkSettings.EnableAndInitialize));
+            EnableAndInitIf = AccessTools.Method(
+                typeof(Pawn_WorkSettings),
+                nameof(Pawn_WorkSettings.EnableAndInitializeIfNotAlreadyInitialized)
+            );
+            PawnMindState = AccessTools.Field(typeof(Pawn), "mindState");
+            PawnWorkSettings = AccessTools.Field(typeof(Pawn), "workSettings");
+            
             RDA.Harmony.PatchAll(Assembly.GetExecutingAssembly());
         }
     }

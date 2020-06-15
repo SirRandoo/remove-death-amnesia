@@ -1,10 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Reflection.Emit;
-
 using HarmonyLib;
-
 using RimWorld;
-
 using Verse;
 
 namespace SirRandoo.RDA.Patches
@@ -15,14 +12,11 @@ namespace SirRandoo.RDA.Patches
         [HarmonyTranspiler]
         public static IEnumerable<CodeInstruction> Kill(IEnumerable<CodeInstruction> instructions)
         {
-            var billMarker = AccessTools.Method(type: typeof(BillUtility), name: nameof(BillUtility.Notify_ColonistUnavailable));
-            var wrapper = AccessTools.Method(type: typeof(Pawn__Kill), name: nameof(Notify_ColonistUnavailable));
-
-            foreach(var instruction in instructions)
+            foreach (var instruction in instructions)
             {
-                if(instruction.opcode == OpCodes.Call && instruction.operand == billMarker)
+                if (instruction.OperandIs(RuntimeChecker.RimBillNotify))
                 {
-                    instruction.operand = wrapper;
+                    instruction.operand = RuntimeChecker.RdaBillNotify;
                 }
 
                 yield return instruction;
@@ -31,9 +25,32 @@ namespace SirRandoo.RDA.Patches
 
         public static void Notify_ColonistUnavailable(Pawn pawn)
         {
-            if(Settings.Bills) return;
+            if (Settings.Bills)
+            {
+                return;
+            }
 
             BillUtility.Notify_ColonistUnavailable(pawn);
+        }
+    }
+
+    [HarmonyPatch(typeof(Pawn), "SetFaction")]
+    public static class Pawn__SetFaction
+    {
+        [HarmonyTranspiler]
+        public static IEnumerable<CodeInstruction> SetFaction(IEnumerable<CodeInstruction> instructions)
+        {
+            foreach (var instruction in instructions)
+            {
+                if (instruction.opcode == OpCodes.Callvirt && instruction.operand == RuntimeChecker.EnableAndInit)
+                {
+                    yield return new CodeInstruction(OpCodes.Callvirt, RuntimeChecker.EnableAndInitIf);
+                }
+                else
+                {
+                    yield return instruction;
+                }
+            }
         }
     }
 }
