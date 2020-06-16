@@ -79,6 +79,7 @@
     <Compile Include="Logger.cs" />
     <Compile Include="MemoryHelper.cs" />
     <Compile Include="MemoryThingComp.cs" />
+    <Compile Include="Patches\PawnComponentsUtilityPatch.cs" />
     <Compile Include="Patches\PawnPatch.cs" />
     <Compile Include="Patches\ResurrectionUtilityPatch.cs" />
     <Compile Include="Patches\WorkSettingsPatch.cs" />

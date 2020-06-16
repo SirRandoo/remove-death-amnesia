@@ -1,5 +1,6 @@
 ﻿using System.Reflection;
 using HarmonyLib;
+using RimWorld;
 using UnityEngine;
 using Verse;
 
@@ -33,12 +34,23 @@ namespace SirRandoo.RDA
     public class RdaStatic
     {
         internal static readonly SoundDef GizmoSound;
+        internal static readonly MethodInfo EnableAndInit;
+        internal static readonly MethodInfo EnableAndInitIf;
+        internal static readonly FieldInfo PawnMindState;
+        internal static readonly FieldInfo PawnWorkSettings;
 
         static RdaStatic()
         {
-            Rda.Harmony.PatchAll(Assembly.GetExecutingAssembly());
-
             GizmoSound = SoundDef.Named("Click");
+            EnableAndInit = AccessTools.Method(typeof(Pawn_WorkSettings), nameof(Pawn_WorkSettings.EnableAndInitialize));
+            EnableAndInitIf = AccessTools.Method(
+                typeof(Pawn_WorkSettings),
+                nameof(Pawn_WorkSettings.EnableAndInitializeIfNotAlreadyInitialized)
+            );
+            PawnMindState = AccessTools.Field(typeof(Pawn), "mindState");
+            PawnWorkSettings = AccessTools.Field(typeof(Pawn), "workSettings");
+            
+            Rda.Harmony.PatchAll(Assembly.GetExecutingAssembly());
         }
     }
 }

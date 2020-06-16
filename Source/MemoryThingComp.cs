@@ -51,7 +51,7 @@ namespace SirRandoo.RDA
 
             _restoreMemory ??= new Command_Action
             {
-                action = TryRestoreMemory,
+                action = () => TryRestoreMemory(),
                 activateSound = RdaStatic.GizmoSound,
                 defaultLabel = "RDA.Gizmos.Restore.Label".Translate(),
                 defaultDesc = "RDA.Gizmos.Restore.Description".Translate()
@@ -76,7 +76,7 @@ namespace SirRandoo.RDA
             yield return _restoreMemory;
         }
 
-        internal void TryRestoreMemory()
+        internal void TryRestoreMemory(bool work=true)
         {
             if (Parent == null)
             {
@@ -91,7 +91,11 @@ namespace SirRandoo.RDA
             TryRestoreFoodRestriction();
             TryRestoreDrugPolicy();
             TryRestoreTimetable();
-            TryRestoreWorkPriorities();
+            
+            if(work)
+            {
+                TryRestoreWorkPriorities();
+            }
 
             if (Parent.playerSettings != null)
             {

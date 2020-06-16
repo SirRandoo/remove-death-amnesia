@@ -74,7 +74,23 @@ namespace SirRandoo.RDA.Patches
                 return;
             }
 
-            __instance?.TryGetComp<MemoryThingComp>()?.TryRestoreMemory();
+            __instance?.TryGetComp<MemoryThingComp>()?.TryRestoreMemory(false);
+        }
+        
+        [HarmonyTranspiler]
+        public static IEnumerable<CodeInstruction> SetFaction(IEnumerable<CodeInstruction> instructions)
+        {
+            foreach (var instruction in instructions)
+            {
+                if (instruction.opcode == OpCodes.Callvirt && instruction.OperandIs(RdaStatic.EnableAndInit))
+                {
+                    yield return new CodeInstruction(OpCodes.Callvirt, RdaStatic.EnableAndInitIf);
+                }
+                else
+                {
+                    yield return instruction;
+                }
+            }
         }
     }
 
