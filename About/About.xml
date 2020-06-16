@@ -18,4 +18,8 @@
       <downloadUrl>https://github.com/pardeike/HarmonyRimWorld/releases/latest</downloadUrl>
     </li>
   </modDependencies>
+  
+  <incompatibleWith>
+    <li>gguake.areaninclusionexclusion</li>
+  </incompatibleWith>
 </ModMetaData>
