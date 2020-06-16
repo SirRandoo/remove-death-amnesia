@@ -18,31 +18,25 @@ namespace SirRandoo.RDA.Patches
             {
                 if (instruction.opcode == OpCodes.Stfld && instruction.OperandIs(RuntimeChecker.PawnMindState))
                 {
-                    Log.Message($"+ Opcode: {instruction.opcode}::{instruction.operand.ToStringSafe()}");
                     yield return instruction;
-                    
-                    Log.Message("Starting work settings removal...");
                     culling = true;
                     continue;
                 }
 
                 if (!culling)
                 {
-                    Log.Message($"+ Opcode: {instruction.opcode}::{instruction.operand.ToStringSafe()}");
                     yield return instruction;
                 }
                 else
                 {
                     if (instruction.opcode == OpCodes.Stfld && instruction.OperandIs(RuntimeChecker.PawnWorkSettings))
                     {
-                        Log.Message("Finished removing work settings assignment...");
                         culling = false;
                         instruction.opcode = OpCodes.Nop;
                         continue;
                     }
                     
                     instruction.opcode = OpCodes.Nop;
-                    Log.Message($"- Opcode: {instruction.opcode}::{instruction.operand.ToStringSafe()}");
                 }
             }
         }
