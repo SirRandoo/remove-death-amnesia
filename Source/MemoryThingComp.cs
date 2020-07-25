@@ -348,10 +348,7 @@ namespace SirRandoo.RDA
                 return;
             }
 
-            foreach (var work in _workCache)
-            {
-                Parent.workSettings.SetPriority(work.Key, work.Value);
-            }
+            MemoryHelper.WorkSettingsMap.SetValue(Parent.workSettings, _workCache.Copy());
         }
 
         internal void TryStoreBed()
