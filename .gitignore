@@ -328,6 +328,7 @@ ASALocalRun/
 
 # MFractors (Xamarin productivity tool) working folder 
 .mfractor/
-/1.1/Assemblies/
+/Assemblies/
+/[0-9].[0-9]/Assemblies/
 /Remove Death Amnesia.sln.DotSettings
 /Remove Death Amnesia.zip

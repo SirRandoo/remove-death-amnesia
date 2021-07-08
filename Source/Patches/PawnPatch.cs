@@ -25,7 +25,7 @@ namespace SirRandoo.RDA.Patches
         [HarmonyTranspiler]
         public static IEnumerable<CodeInstruction> PreserveBillsOnDeath(IEnumerable<CodeInstruction> instructions)
         {
-            foreach (var instruction in instructions)
+            foreach (CodeInstruction instruction in instructions)
             {
                 if (instruction.opcode == OpCodes.Call && instruction.operand as MethodInfo == BillColonistUnavailable)
                 {
@@ -76,11 +76,11 @@ namespace SirRandoo.RDA.Patches
 
             __instance?.TryGetComp<MemoryThingComp>()?.TryRestoreMemory(false);
         }
-        
+
         [HarmonyTranspiler]
         public static IEnumerable<CodeInstruction> SetFaction(IEnumerable<CodeInstruction> instructions)
         {
-            foreach (var instruction in instructions)
+            foreach (CodeInstruction instruction in instructions)
             {
                 if (instruction.opcode == OpCodes.Callvirt && instruction.OperandIs(RdaStatic.EnableAndInit))
                 {

@@ -2,7 +2,6 @@
 using System.Reflection.Emit;
 using HarmonyLib;
 using RimWorld;
-using Verse;
 
 namespace SirRandoo.RDA.Patches
 {
@@ -14,7 +13,7 @@ namespace SirRandoo.RDA.Patches
         {
             var culling = false;
 
-            foreach (var instruction in instructions)
+            foreach (CodeInstruction instruction in instructions)
             {
                 if (instruction.opcode == OpCodes.Stfld && instruction.OperandIs(RdaStatic.PawnMindState))
                 {
@@ -35,7 +34,7 @@ namespace SirRandoo.RDA.Patches
                         instruction.opcode = OpCodes.Nop;
                         continue;
                     }
-                    
+
                     instruction.opcode = OpCodes.Nop;
                 }
             }

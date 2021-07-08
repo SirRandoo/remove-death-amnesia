@@ -42,14 +42,17 @@ namespace SirRandoo.RDA
         static RdaStatic()
         {
             GizmoSound = SoundDef.Named("Click");
-            EnableAndInit = AccessTools.Method(typeof(Pawn_WorkSettings), nameof(Pawn_WorkSettings.EnableAndInitialize));
+            EnableAndInit = AccessTools.Method(
+                typeof(Pawn_WorkSettings),
+                nameof(Pawn_WorkSettings.EnableAndInitialize)
+            );
             EnableAndInitIf = AccessTools.Method(
                 typeof(Pawn_WorkSettings),
                 nameof(Pawn_WorkSettings.EnableAndInitializeIfNotAlreadyInitialized)
             );
             PawnMindState = AccessTools.Field(typeof(Pawn), "mindState");
             PawnWorkSettings = AccessTools.Field(typeof(Pawn), "workSettings");
-            
+
             Rda.Harmony.PatchAll(Assembly.GetExecutingAssembly());
         }
     }

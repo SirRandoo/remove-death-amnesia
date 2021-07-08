@@ -19,11 +19,11 @@ namespace SirRandoo.RDA.Patches
 
             pawn.TryGetComp<MemoryThingComp>()?.TryRestoreMemory(false);
         }
-        
+
         [HarmonyTranspiler]
         public static IEnumerable<CodeInstruction> Resurrect(IEnumerable<CodeInstruction> instructions)
         {
-            foreach (var instruction in instructions)
+            foreach (CodeInstruction instruction in instructions)
             {
                 if (instruction.opcode == OpCodes.Callvirt && instruction.OperandIs(RdaStatic.EnableAndInit))
                 {

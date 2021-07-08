@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using JetBrains.Annotations;
 using UnityEngine;
 using Verse;
 
@@ -54,10 +55,10 @@ namespace SirRandoo.RDA
 
             Widgets.DrawMenuSection(menuRect);
             listing.Begin(menuRect.ContractedBy(4f));
-            listing.BeginScrollView(menuInnerRect, ref _menuScrollPos, ref menuView);
-            foreach (var page in Pages)
+            Widgets.BeginScrollView(menuInnerRect, ref _menuScrollPos, menuView);
+            foreach (string page in Pages)
             {
-                var lineRect = listing.GetRect(Text.LineHeight);
+                Rect lineRect = listing.GetRect(Text.LineHeight);
 
                 if (_lastPage == page)
                 {
@@ -73,10 +74,10 @@ namespace SirRandoo.RDA
             }
 
             listing.End();
-            listing.EndScrollView(ref menuView);
+            Widgets.EndScrollView();
 
             listing.Begin(pageRect);
-            listing.BeginScrollView(pageInnerRect, ref _pageScrollPos, ref pageView);
+            Widgets.BeginScrollView(pageInnerRect, ref _pageScrollPos, pageView);
             switch (_lastPage)
             {
                 case "General":
@@ -88,12 +89,12 @@ namespace SirRandoo.RDA
             }
 
             listing.End();
-            listing.EndScrollView(ref pageView);
+            Widgets.EndScrollView();
 
             GUI.EndGroup();
         }
 
-        private static void DrawGeneralPage(Listing_Standard listing)
+        private static void DrawGeneralPage([NotNull] Listing_Standard listing)
         {
             listing.CheckboxLabeled("RDA.Settings.General.Bed".Translate(), ref Beds);
             listing.CheckboxLabeled("RDA.Settings.General.DrugPolicy".Translate(), ref DrugPolicies);
@@ -116,9 +117,7 @@ namespace SirRandoo.RDA
             listing.CheckboxLabeled("RDA.Settings.General.Work".Translate(), ref Priorities);
         }
 
-        private static void DrawExperimentalPage(Listing_Standard listing)
-        {
-        }
+        private static void DrawExperimentalPage(Listing_Standard listing) { }
 
         public override void ExposeData()
         {

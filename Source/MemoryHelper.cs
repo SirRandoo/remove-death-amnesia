@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using System.Collections.Generic;
+using System.Reflection;
 using RimWorld;
 using Verse;
 
@@ -21,7 +22,7 @@ namespace SirRandoo.RDA
         {
             var map = new DefMap<WorkTypeDef, int>();
 
-            foreach (var pair in m)
+            foreach (KeyValuePair<WorkTypeDef, int> pair in m)
             {
                 map[pair.Key] = pair.Value;
             }

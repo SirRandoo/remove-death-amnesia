@@ -76,7 +76,7 @@ namespace SirRandoo.RDA
             yield return _restoreMemory;
         }
 
-        internal void TryRestoreMemory(bool work=true)
+        internal void TryRestoreMemory(bool work = true)
         {
             if (Parent == null)
             {
@@ -91,8 +91,8 @@ namespace SirRandoo.RDA
             TryRestoreFoodRestriction();
             TryRestoreDrugPolicy();
             TryRestoreTimetable();
-            
-            if(work)
+
+            if (work)
             {
                 TryRestoreWorkPriorities();
             }
@@ -208,9 +208,9 @@ namespace SirRandoo.RDA
                 return;
             }
 
-            if (
-                !Current.Game.foodRestrictionDatabase.AllFoodRestrictions.Any(f => _lastFoodRestriction.id.Equals(f.id))
-            )
+            if (!Current.Game.foodRestrictionDatabase.AllFoodRestrictions.Any(
+                f => _lastFoodRestriction.id.Equals(f.id)
+            ))
             {
                 _lastFoodRestriction = null;
                 return;
