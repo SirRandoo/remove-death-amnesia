@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <RDA.Groups.General.Label>基本設定</RDA.Groups.General.Label>
+
+  <RDA.Groups.Experimental.Label>試験運用中の設定</RDA.Groups.Experimental.Label>
+  <RDA.Groups.Experimental.Tooltip>注意: このグループの設定は意図されたように動作しない、あるいは全く動作しない可能性があります。この設定のいずれかでも有効にした際には、その設定に関する問題を報告してください。</RDA.Groups.Experimental.Tooltip>
+
+
+  <RDA.Settings.Priorities.Label>復活時にポーンの作業優先度も復帰</RDA.Settings.Priorities.Label>
+  <RDA.Settings.Priorities.Tooltip>このMODが有効な状態でポーンが死亡後に復活した場合、そのポーンの仕事の優先順位を元に戻します。</RDA.Settings.Priorities.Tooltip>
+
+  <RDA.Settings.Bills.Label>ポーンの作業割り当てを保存</RDA.Settings.Bills.Label>
+  <RDA.Settings.Bills.Tooltip>このMODが有効な状態でポーンが死亡した場合、ポーンに割り当てられていた作業が削除されないようにします。</RDA.Settings.Bills.Tooltip>
+
+   <!--Setting Groups--> 
+  <RDA.Settings.General>基本設定</RDA.Settings.General>
+  <RDA.Settings.Experimental>試験運用</RDA.Settings.Experimental>
+
+   <!--General Settings--> 
+  <RDA.Settings.General.Bed>ポーンのベッド割り当てを元に戻す</RDA.Settings.General.Bed>
+  <RDA.Settings.General.DrugPolicy>ポーンの薬物適用方針の割り当てを元に戻す</RDA.Settings.General.DrugPolicy>
+  <RDA.Settings.General.FoodRestriction>ポーンの食事制限を元に戻す</RDA.Settings.General.FoodRestriction>
+  <RDA.Settings.General.Outfit>ポーンの服装設定を元に戻す</RDA.Settings.General.Outfit>
+  <RDA.Settings.General.TimeTable>ポーンの時間割を元に戻す</RDA.Settings.General.TimeTable>
+  <RDA.Settings.General.SelfTend>ポーンの自己治療の設定を元に戻す</RDA.Settings.General.SelfTend>
+  <RDA.Settings.General.DisplayOrder>ポーンの表示順を元に戻す</RDA.Settings.General.DisplayOrder>
+  <RDA.Settings.General.MedicalCare>ポーンの治療区分を元に戻す</RDA.Settings.General.MedicalCare>
+  <RDA.Settings.General.MedicalCare.Tooltip>治療区分とは、医者に使ってもらう薬のランクです。</RDA.Settings.General.MedicalCare.Tooltip>
+  <RDA.Settings.General.HostilityResponse>ポーンの敵対者への対応を元に戻す</RDA.Settings.General.HostilityResponse>
+  <RDA.Settings.General.HostilityResponse.Tooltip>敵対者への対応とは非徴兵時に会敵した場合に取る行動です(攻撃・逃走・無視)。</RDA.Settings.General.HostilityResponse.Tooltip>
+  <RDA.Settings.General.Area>ポーンのエリア制限を元に戻す</RDA.Settings.General.Area>
+  <RDA.Settings.General.Work>ポーンの作業の優先順位を元に戻す</RDA.Settings.General.Work>
+
+</LanguageData>
