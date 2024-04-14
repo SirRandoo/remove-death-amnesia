@@ -11,10 +11,10 @@ namespace SirRandoo.RDA
         private Building_Bed _lastBed;
         private int _lastDisplayOrder;
         private DrugPolicy _lastDrugPolicy;
-        private FoodRestriction _lastFoodRestriction;
+        private FoodPolicy _lastFoodRestriction;
         private HostilityResponseMode _lastHostilityResponse;
         private MedicalCareCategory _lastMedCareCategory;
-        private Outfit _lastOutfit;
+        private ApparelPolicy _lastOutfit;
         private List<TimeAssignmentDef> _lastSchedule;
 
         // Player settings
@@ -182,18 +182,18 @@ namespace SirRandoo.RDA
                 return;
             }
 
-            if (!Current.Game.outfitDatabase.AllOutfits.Any(f => _lastOutfit.uniqueId.Equals(f.uniqueId)))
+            if (!Current.Game.outfitDatabase.AllOutfits.Any(f => _lastOutfit.id.Equals(f.id)))
             {
                 _lastOutfit = null;
                 return;
             }
 
-            if (Parent.outfits.CurrentOutfit == _lastOutfit)
+            if (Parent.outfits.CurrentApparelPolicy == _lastOutfit)
             {
                 return;
             }
 
-            Parent.outfits.CurrentOutfit = _lastOutfit;
+            Parent.outfits.CurrentApparelPolicy = _lastOutfit;
         }
 
         internal void TryRestoreFoodRestriction()
@@ -216,12 +216,12 @@ namespace SirRandoo.RDA
                 return;
             }
 
-            if (Parent.foodRestriction.CurrentFoodRestriction == _lastFoodRestriction)
+            if (Parent.foodRestriction.CurrentFoodPolicy == _lastFoodRestriction)
             {
                 return;
             }
 
-            Parent.foodRestriction.CurrentFoodRestriction = _lastFoodRestriction;
+            Parent.foodRestriction.CurrentFoodPolicy = _lastFoodRestriction;
         }
 
         internal void TryRestoreDrugPolicy()
@@ -236,7 +236,7 @@ namespace SirRandoo.RDA
                 return;
             }
 
-            if (!Current.Game.drugPolicyDatabase.AllPolicies.Any(p => _lastDrugPolicy.uniqueId.Equals(p.uniqueId)))
+            if (!Current.Game.drugPolicyDatabase.AllPolicies.Any(p => _lastDrugPolicy.id.Equals(p.id)))
             {
                 _lastDrugPolicy = null;
                 return;
@@ -288,12 +288,12 @@ namespace SirRandoo.RDA
                 return;
             }
 
-            if (Parent.playerSettings.AreaRestriction == _lastAllowedArea)
+            if (Parent.playerSettings.AreaRestrictionInPawnCurrentMap == _lastAllowedArea)
             {
                 return;
             }
 
-            Parent.playerSettings.AreaRestriction = _lastAllowedArea;
+            Parent.playerSettings.AreaRestrictionInPawnCurrentMap = _lastAllowedArea;
         }
 
         internal void TryRestoreDisplayOrder()
@@ -373,12 +373,12 @@ namespace SirRandoo.RDA
                 return;
             }
 
-            if (Parent.outfits?.CurrentOutfit == null)
+            if (Parent.outfits?.CurrentApparelPolicy == null)
             {
                 return;
             }
 
-            _lastOutfit = Parent.outfits.CurrentOutfit;
+            _lastOutfit = Parent.outfits.CurrentApparelPolicy;
         }
 
         internal void TryStoreFoodRestriction()
@@ -388,12 +388,12 @@ namespace SirRandoo.RDA
                 return;
             }
 
-            if (Parent.foodRestriction?.CurrentFoodRestriction == null)
+            if (Parent.foodRestriction?.CurrentFoodPolicy == null)
             {
                 return;
             }
 
-            _lastFoodRestriction = Parent.foodRestriction.CurrentFoodRestriction;
+            _lastFoodRestriction = Parent.foodRestriction.CurrentFoodPolicy;
         }
 
         internal void TryStoreDrugPolicy()
@@ -433,12 +433,12 @@ namespace SirRandoo.RDA
                 return;
             }
 
-            if (Parent.playerSettings?.AreaRestriction == null)
+            if (Parent.playerSettings?.AreaRestrictionInPawnCurrentMap == null)
             {
                 return;
             }
 
-            _lastAllowedArea = Parent.playerSettings.AreaRestriction;
+            _lastAllowedArea = Parent.playerSettings.AreaRestrictionInPawnCurrentMap;
         }
 
         internal void TryStoreDisplayOrder()
