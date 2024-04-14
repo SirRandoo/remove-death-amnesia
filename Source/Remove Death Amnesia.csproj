@@ -11,9 +11,6 @@
     <Content Include="..\About\About.xml">
       <Link>About\About.xml</Link>
     </Content>
-    <Content Include="..\About\Manifest.xml">
-      <Link>About\Manifest.xml</Link>
-    </Content>
     <Content Include="..\About\Preview.png">
       <Link>About\Preview.png</Link>
     </Content>
