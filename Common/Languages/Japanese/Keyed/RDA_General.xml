@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<LanguageData>
+  <!-- Gizmos -->
+  <RDA.Gizmos.Restore.Label>メモリーの復元</RDA.Gizmos.Restore.Label>
+  <RDA.Gizmos.Restore.Description>ポーンの最後のメモリーを復元します。</RDA.Gizmos.Restore.Description>
+  <RDA.Gizmos.Store.Label>メモリの保存</RDA.Gizmos.Store.Label>
+  <RDA.Gizmos.Store.Description>ポーンの現在のメモリーを保存します。</RDA.Gizmos.Store.Description>
+
+</LanguageData>

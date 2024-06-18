@@ -2,115 +2,77 @@
 using System.Reflection;
 using System.Reflection.Emit;
 using HarmonyLib;
+using JetBrains.Annotations;
 using RimWorld;
 using Verse;
 
 // ReSharper disable InconsistentNaming
 
-namespace SirRandoo.RDA.Patches
+namespace SirRandoo.RDA.Patches;
+
+[PublicAPI]
+[HarmonyPatch]
+internal static class PawnKillPatch
 {
-    [HarmonyPatch(typeof(Pawn), "Kill")]
-    public static class PawnKillPatch
+    private static readonly MethodBase KillMethod = AccessTools.Method(typeof(Pawn), nameof(Pawn.Kill));
+    private static readonly MethodInfo BillColonistUnavailable = AccessTools.Method(typeof(BillUtility), nameof(BillUtility.Notify_ColonistUnavailable));
+    private static readonly MethodInfo NotifyColonistUnavailable = AccessTools.Method(typeof(PawnKillPatch), nameof(Notify__ColonistUnavailable));
+
+    private static IEnumerable<MethodBase> TargetMethods()
     {
-        private static readonly MethodInfo BillColonistUnavailable = AccessTools.Method(
-            typeof(BillUtility),
-            nameof(BillUtility.Notify_ColonistUnavailable)
-        );
+        yield return KillMethod;
+    }
 
-        private static readonly MethodInfo NotifyColonistUnavailable = AccessTools.Method(
-            typeof(PawnKillPatch),
-            nameof(Notify__ColonistUnavailable)
-        );
-
-        [HarmonyTranspiler]
-        public static IEnumerable<CodeInstruction> PreserveBillsOnDeath(IEnumerable<CodeInstruction> instructions)
+    private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
+    {
+        foreach (CodeInstruction instruction in instructions)
         {
-            foreach (CodeInstruction instruction in instructions)
+            if (instruction.opcode == OpCodes.Call && instruction.operand as MethodInfo == BillColonistUnavailable)
             {
-                if (instruction.opcode == OpCodes.Call && instruction.operand as MethodInfo == BillColonistUnavailable)
-                {
-                    instruction.operand = NotifyColonistUnavailable;
-                }
-
-                yield return instruction;
-            }
-        }
-
-        [HarmonyPrefix]
-        public static void StoreMemoriesOnDeath(Pawn __instance)
-        {
-            if (!MemoryThingComp.ShouldRemember(__instance))
-            {
-                return;
+                instruction.operand = NotifyColonistUnavailable;
             }
 
-            __instance.TryGetComp<MemoryThingComp>()?.TryStoreMemory();
-        }
-
-        private static void Notify__ColonistUnavailable(Pawn pawn)
-        {
-            if (Settings.Bills)
-            {
-                return;
-            }
-
-            BillUtility.Notify_ColonistUnavailable(pawn);
+            yield return instruction;
         }
     }
 
-    [HarmonyPatch(typeof(Pawn), "SetFaction")]
-    public static class PawnSetFactionPatch
+    private static void Prefix(Pawn __instance)
     {
-        [HarmonyPostfix]
-        public static void RestorePlayerColonist(Pawn __instance, Faction newFaction)
+        if (!MemoryThingComp.ShouldRemember(__instance))
         {
-            if (!MemoryThingComp.ShouldRemember(__instance))
-            {
-                return;
-            }
-
-            if (newFaction != Faction.OfPlayer)
-            {
-                return;
-            }
-
-            __instance?.TryGetComp<MemoryThingComp>()?.TryRestoreMemory(false);
+            return;
         }
 
-        [HarmonyTranspiler]
-        public static IEnumerable<CodeInstruction> SetFaction(IEnumerable<CodeInstruction> instructions)
-        {
-            foreach (CodeInstruction instruction in instructions)
-            {
-                if (instruction.opcode == OpCodes.Callvirt && instruction.OperandIs(RdaStatic.EnableAndInit))
-                {
-                    yield return new CodeInstruction(OpCodes.Callvirt, RdaStatic.EnableAndInitIf);
-                }
-                else
-                {
-                    yield return instruction;
-                }
-            }
-        }
+        __instance.TryGetComp<MemoryThingComp>()?.TryStoreMemory();
     }
 
-    [HarmonyPatch(typeof(Pawn), "ChangeKind")]
-    public static class PawnChangeKindPatch
+    private static void Notify__ColonistUnavailable(Pawn pawn)
     {
-        [HarmonyPrefix]
-        public static void WildManCheck(Pawn __instance, PawnKindDef newKindDef)
+        if (Settings.Bills)
         {
-            if (!MemoryThingComp.ShouldRemember(__instance))
-            {
-                return;
-            }
-
-            if (newKindDef != PawnKindDefOf.WildMan)
-            {
-                return;
-            }
-
-            __instance?.TryGetComp<MemoryThingComp>()?.TryStoreMemory();
+            return;
         }
+
+        BillUtility.Notify_ColonistUnavailable(pawn);
+    }
+}
+
+[HarmonyPatch(typeof(Pawn), "ChangeKind")]
+public static class PawnChangeKindPatch
+{
+    [HarmonyPrefix]
+    public static void WildManCheck(Pawn __instance, PawnKindDef newKindDef)
+    {
+        if (!MemoryThingComp.ShouldRemember(__instance))
+        {
+            return;
+        }
+
+        if (newKindDef != PawnKindDefOf.WildMan)
+        {
+            return;
+        }
+
+        __instance?.TryGetComp<MemoryThingComp>()?.TryStoreMemory();
     }
 }

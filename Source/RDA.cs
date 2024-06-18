@@ -1,59 +1,50 @@
 ﻿using System.Reflection;
 using HarmonyLib;
+using JetBrains.Annotations;
 using RimWorld;
 using UnityEngine;
 using Verse;
 
-namespace SirRandoo.RDA
+namespace SirRandoo.RDA;
+
+[PublicAPI]
+public class Rda : Mod
 {
-    public class Rda : Mod
+    internal static Harmony Harmony;
+    public static string Id = "Remove Death Amnesia";
+
+    public Rda(ModContentPack content) : base(content)
     {
-        internal static Harmony Harmony;
-        public static string Id = "Remove Death Amnesia";
+        Harmony = new Harmony("com.sirrandoo.rda");
 
-        public Rda(ModContentPack content) : base(content)
-        {
-            Harmony = new Harmony("com.sirrandoo.rda");
-
-            GetSettings<Settings>();
-            Id = content.Name;
-        }
-
-        public override void DoSettingsWindowContents(Rect inRect)
-        {
-            Settings.Draw(inRect);
-        }
-
-        public override string SettingsCategory()
-        {
-            return Id;
-        }
+        GetSettings<Settings>();
+        Id = content.Name;
     }
 
-    [StaticConstructorOnStartup]
-    public class RdaStatic
+    public override void DoSettingsWindowContents(Rect inRect)
     {
-        internal static readonly SoundDef GizmoSound;
-        internal static readonly MethodInfo EnableAndInit;
-        internal static readonly MethodInfo EnableAndInitIf;
-        internal static readonly FieldInfo PawnMindState;
-        internal static readonly FieldInfo PawnWorkSettings;
+        Settings.Draw(inRect);
+    }
 
-        static RdaStatic()
-        {
-            GizmoSound = SoundDef.Named("Click");
-            EnableAndInit = AccessTools.Method(
-                typeof(Pawn_WorkSettings),
-                nameof(Pawn_WorkSettings.EnableAndInitialize)
-            );
-            EnableAndInitIf = AccessTools.Method(
-                typeof(Pawn_WorkSettings),
-                nameof(Pawn_WorkSettings.EnableAndInitializeIfNotAlreadyInitialized)
-            );
-            PawnMindState = AccessTools.Field(typeof(Pawn), "mindState");
-            PawnWorkSettings = AccessTools.Field(typeof(Pawn), "workSettings");
+    public override string SettingsCategory() => Id;
+}
 
-            Rda.Harmony.PatchAll(Assembly.GetExecutingAssembly());
-        }
+[StaticConstructorOnStartup]
+internal static class RdaStatic
+{
+    internal static readonly SoundDef GizmoSound = SoundDef.Named("Click");
+    internal static readonly MethodInfo EnableAndInit = AccessTools.Method(typeof(Pawn_WorkSettings), nameof(Pawn_WorkSettings.EnableAndInitialize));
+
+    internal static readonly MethodInfo EnableAndInitIf = AccessTools.Method(
+        typeof(Pawn_WorkSettings),
+        nameof(Pawn_WorkSettings.EnableAndInitializeIfNotAlreadyInitialized)
+    );
+
+    internal static readonly FieldInfo PawnMindState = AccessTools.Field(typeof(Pawn), "mindState");
+    internal static readonly FieldInfo PawnWorkSettings = AccessTools.Field(typeof(Pawn), "workSettings");
+
+    static RdaStatic()
+    {
+        Rda.Harmony.PatchAll(Assembly.GetExecutingAssembly());
     }
 }

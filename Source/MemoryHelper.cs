@@ -1,33 +1,30 @@
 ﻿using System.Collections.Generic;
 using System.Reflection;
+using JetBrains.Annotations;
 using RimWorld;
 using Verse;
 
-namespace SirRandoo.RDA
+namespace SirRandoo.RDA;
+
+[StaticConstructorOnStartup]
+public static class MemoryHelper
 {
-    [StaticConstructorOnStartup]
-    public static class MemoryHelper
+    internal static readonly FieldInfo WorkSettingsMap;
+
+    static MemoryHelper()
     {
-        internal static readonly FieldInfo WorkSettingsMap;
+        WorkSettingsMap = typeof(Pawn_WorkSettings).GetField("priorities", BindingFlags.NonPublic | BindingFlags.Instance);
+    }
 
-        static MemoryHelper()
+    public static DefMap<WorkTypeDef, int> Copy(this DefMap<WorkTypeDef, int> m)
+    {
+        var map = new DefMap<WorkTypeDef, int>();
+
+        foreach (KeyValuePair<WorkTypeDef, int> pair in m)
         {
-            WorkSettingsMap = typeof(Pawn_WorkSettings).GetField(
-                "priorities",
-                BindingFlags.NonPublic | BindingFlags.Instance
-            );
+            map[pair.Key] = pair.Value;
         }
 
-        public static DefMap<WorkTypeDef, int> Copy(this DefMap<WorkTypeDef, int> m)
-        {
-            var map = new DefMap<WorkTypeDef, int>();
-
-            foreach (KeyValuePair<WorkTypeDef, int> pair in m)
-            {
-                map[pair.Key] = pair.Value;
-            }
-
-            return map;
-        }
+        return map;
     }
 }

@@ -1,40 +1,72 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup>
-    <TargetFramework>net472</TargetFramework>
-    <OutputType>Library</OutputType>
-    <RootNamespace>SirRandoo.RDA</RootNamespace>
-    <LangVersion>8</LangVersion>
-    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
-    <OutputPath>..\Assemblies\</OutputPath>
-  </PropertyGroup>
-  <ItemGroup>
-    <Content Include="..\About\About.xml">
-      <Link>About\About.xml</Link>
-    </Content>
-    <Content Include="..\About\Preview.png">
-      <Link>About\Preview.png</Link>
-    </Content>
-    <Content Include="..\README.md">
-      <Link>README.md</Link>
-    </Content>
-    <Content Include="..\LICENSE">
-      <Link>LICENSE</Link>
-    </Content>
-    <Content Include="..\LoadFolders.xml">
-      <Link>LoadFolders.xml</Link>
-    </Content>
-    <Content Include="..\Common\Languages\English\Keyed\RDA_General.xml">
-      <Link>Common\Languages\English\Keyed\RDA_General.xml</Link>
-    </Content>
-    <Content Include="..\Common\Languages\English\Keyed\RDA_Settings.xml">
-      <Link>Common\Languages\English\Keyed\RDA_Settings.xml</Link>
-    </Content>
-    <Content Include="..\Common\Patches\MemoryCompPatch.xml">
-      <Link>Common\Patches\MemoryCompPatch.xml</Link>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="Krafs.Rimworld.Ref" Version="1.5.4063" />
-    <PackageReference Include="Lib.Harmony" Version="2.3.3" />
-  </ItemGroup>
+    <PropertyGroup>
+        <Nullable>enable</Nullable>
+        <OutputType>Library</OutputType>
+        <LangVersion>preview</LangVersion>
+        <OutputPath>..\Assemblies\</OutputPath>
+        <TargetFramework>net48</TargetFramework>
+        <RootNamespace>SirRandoo.RDA</RootNamespace>
+        <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
+    </PropertyGroup>
+
+    <!-- Product Information -->
+    <PropertyGroup>
+        <Authors>SirRandoo</Authors>
+        <Product>Remove Death Amnesia</Product>
+        <Copyright>Copyright (c) $([System.DateTime]::Now.ToString("yyyy")) SirRandoo</Copyright>
+        <Description>A mod for the game "RimWorld" that helps pawns remember who they were before they died.</Description>
+
+        <RepositoryUrl>https://github.com/sirrandoo/remove-death-amnesia</RepositoryUrl>
+        <PackageProjectUrl>https://docs.github.com/sirrandoo/remove-death-amnesia</PackageProjectUrl>
+    </PropertyGroup>
+
+    <!-- Package Information -->
+    <PropertyGroup>
+        <Version>2.1.0</Version>
+    </PropertyGroup>
+
+    <!-- Licensing -->
+    <PropertyGroup>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <Content Include="..\About\About.xml">
+            <Link>About\About.xml</Link>
+        </Content>
+        <Content Include="..\About\Preview.png">
+            <Link>About\Preview.png</Link>
+        </Content>
+        <Content Include="..\Common\Languages\Japanese\Keyed\RDA_General.xml">
+          <Link>Common\Languages\Japanese\Keyed\RDA_General.xml</Link>
+        </Content>
+        <Content Include="..\Common\Languages\Japanese\Keyed\RDA_Settings.xml">
+          <Link>Common\Languages\Japanese\Keyed\RDA_Settings.xml</Link>
+        </Content>
+        <Content Include="..\Common\Languages\Japanese\LanguageInfo.xml">
+          <Link>Common\Languages\Japanese\LanguageInfo.xml</Link>
+        </Content>
+        <Content Include="..\README.md">
+            <Link>README.md</Link>
+        </Content>
+        <Content Include="..\LICENSE">
+            <Link>LICENSE</Link>
+        </Content>
+        <Content Include="..\LoadFolders.xml">
+            <Link>LoadFolders.xml</Link>
+        </Content>
+        <Content Include="..\Common\Languages\English\Keyed\RDA_General.xml">
+            <Link>Common\Languages\English\Keyed\RDA_General.xml</Link>
+        </Content>
+        <Content Include="..\Common\Languages\English\Keyed\RDA_Settings.xml">
+            <Link>Common\Languages\English\Keyed\RDA_Settings.xml</Link>
+        </Content>
+        <Content Include="..\Common\Patches\MemoryCompPatch.xml">
+            <Link>Common\Patches\MemoryCompPatch.xml</Link>
+        </Content>
+    </ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="Krafs.Rimworld.Ref" Version="1.5.4063" />
+        <PackageReference Include="Lib.Harmony" Version="2.3.3" />
+    </ItemGroup>
 </Project>
